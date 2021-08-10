@@ -2,19 +2,19 @@ package BinarySearchTree;
 
 public class BinaryTree<K extends Comparable<K>> {
 	
-private BinaryNode<K> root;
+public BinaryNode<K> root;
+public static boolean flag = false;  
 	
 	public void add(K key) {
-		
-		this.root = this.addRecursively(root, key);
-		
+		this.root = this.addRecursively(root, key);	
 	}
    
-	 private BinaryNode<K> addRecursively(BinaryNode<K> current, K key ){
-		 if (current == null)
-			 return new BinaryNode<>(key);
-		 int compareResult = key.compareTo(current.key);
-		 if (compareResult == 0) {
+	private BinaryNode<K> addRecursively(BinaryNode<K> current, K key ){
+		if (current == null) {
+			return new BinaryNode<>(key);
+		}
+		int compareResult = key.compareTo(current.key);
+	    if (compareResult == 0) {
 			 return current;
 		 }
 		 if (compareResult < 0) {		 
@@ -34,4 +34,27 @@ private BinaryNode<K> root;
 	 	return current == null ? 0 : 1 + this.getSizeRecursive(current.left) 
 	 	                               + this.getSizeRecursive(current.right);
 	 }
+	 
+	 public void searchNode(BinaryNode<K> temp, K value){  
+	     //Check whether tree is empty  
+		 if(root == null){  
+			 System.out.println("Tree is empty");  
+	     }  
+	     else{  
+	         //If value is found in the given binary tree then, set the flag to true  
+	         if(temp.key == value){  
+	        	 flag = true;  
+	        	 return;  
+	         }  
+	         //Search in left subtree  
+	         if(flag == false && temp.left != null){  
+	            searchNode(temp.left, value);  
+	         }  
+	         //Search in right subtree  
+	         if(flag == false && temp.right != null){  
+	            searchNode(temp.right, value);  
+	         }  
+	     }  
+	 }
+	 
 }
